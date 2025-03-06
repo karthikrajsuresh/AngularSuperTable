@@ -1,0 +1,42 @@
+- .angular
+  - cache
+    - 19.2.1
+      - AngularSuperTable
+        - .tsbuildinfo
+- .editorconfig
+- .gitignore
+- .postcssrc.json
+- README.md
+- angular.json
+- package-lock.json
+- package.json
+- public
+  - favicon.ico
+- src
+  - app
+    - app.component.css
+    - app.component.html
+    - app.component.spec.ts
+    - app.component.ts
+    - app.config.ts
+    - app.routes.ts
+    - dynamic-input
+      - dynamic-input.component.html
+      - dynamic-input.component.ts
+    - super-table
+      - api.service.ts
+      - logger.service.ts
+      - super-table.component.html
+      - super-table.component.ts
+    - table-body
+      - table-body.component.html
+      - table-body.component.ts
+    - table-header
+      - table-header.component.html
+      - table-header.component.ts
+  - index.html
+  - main.ts
+  - styles.css
+- tsconfig.app.json
+- tsconfig.json
+- tsconfig.spec.json
