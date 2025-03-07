@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <button (click)="onAddRow()" class="bg-blue-500 text-white px-3 py-1 rounded mb-2">+</button>
   <div class="overflow-x-auto">
     <table class="min-w-full border-collapse">
@@ -38,4 +38,176 @@
       </tbody>
     </table>
   </div>
-</div>
+</div> -->
+
+<!-- <ng-container *ngFor="let row of data; let i = index">
+  <tr class="border-b hover:bg-gray-50">
+    <td *ngFor="let key of getObjectKeys(row)" class="px-4 py-2 border-r last:border-r-0"
+      (dblclick)="onCellDoubleClick(i, key, row[key])">
+      <ng-container *ngIf="editingCell && editingCell.rowIndex === i && editingCell.key === key; else displayCell">
+        <ng-container [ngSwitch]="getInputType(row[key])">
+          <input *ngSwitchCase="'text'" [(ngModel)]="tempValue" (blur)="saveCell(i, key)"
+            class="border border-gray-300 rounded px-2 py-1" autofocus />
+          <input *ngSwitchCase="'number'" type="number" [(ngModel)]="tempValue" (blur)="saveCell(i, key)"
+            class="border border-gray-300 rounded px-2 py-1" autofocus />
+          <select *ngSwitchCase="'boolean'" [(ngModel)]="tempValue" (blur)="saveCell(i, key)"
+            class="border border-gray-300 rounded px-2 py-1" autofocus>
+            <option [ngValue]="true">True</option>
+            <option [ngValue]="false">False</option>
+            <option [ngValue]="null">Null</option>
+          </select>
+        </ng-container>
+        <button (click)="saveCell(i, key)" class="ml-2 text-green-600 text-sm">
+          Save
+        </button>
+        <button (click)="cancelEdit()" class="ml-2 text-red-600 text-sm">
+          Cancel
+        </button>
+      </ng-container>
+      <ng-template #displayCell>
+        {{ row[key] }}
+      </ng-template>
+    </td>
+  </tr>
+</ng-container> -->
+
+<!-- <div class="w-full">
+
+  <button (click)="onAddRow()" class="bg-blue-500 text-white px-3 py-1 rounded mb-2">
+    +
+  </button>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full border-collapse">
+      <tbody>
+        <tr *ngFor="let row of data; let i = index" class="border-t">
+          <td *ngFor="let key of getObjectKeys(row)" class="border px-4 py-2"
+            (dblclick)="onCellDoubleClick(i, key, row[key])">
+            <ng-container
+              *ngIf="editingCell && editingCell.rowIndex === i && editingCell.key === key; else displayCell">
+              <ng-container [ngSwitch]="getInputType(row[key])">
+                <input *ngSwitchCase="'text'" [(ngModel)]="tempValue" (blur)="saveCell(i, key)"
+                  class="border p-1 rounded" autofocus />
+                <input *ngSwitchCase="'number'" type="number" [(ngModel)]="tempValue" (blur)="saveCell(i, key)"
+                  class="border p-1 rounded" autofocus />
+                <select *ngSwitchCase="'boolean'" [(ngModel)]="tempValue" (blur)="saveCell(i, key)"
+                  class="border p-1 rounded" autofocus>
+                  <option [ngValue]="true">True</option>
+                  <option [ngValue]="false">False</option>
+                  <option [ngValue]="null">Null</option>
+                </select>
+              </ng-container>
+              <button (click)="saveCell(i, key)" class="ml-2 text-green-600">Save</button>
+              <button (click)="cancelEdit()" class="ml-2 text-red-600">Cancel</button>
+            </ng-container>
+            <ng-template #displayCell>
+              {{ row[key] }}
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> -->
+
+<!-- <tbody>
+  <tr *ngFor="let row of data; let i = index" class="border-t">
+    <td *ngFor="let key of getObjectKeys(row)" class="border px-4 py-2"
+        (dblclick)="onCellDoubleClick(i, key, row[key])">
+      <ng-container *ngIf="editingCell && editingCell.rowIndex === i && editingCell.key === key; else displayCell">
+        <ng-container [ngSwitch]="getInputType(row[key])">
+          <input *ngSwitchCase="'text'" [(ngModel)]="tempValue" (blur)="saveCell(i, key)" class="border p-1 rounded" autofocus />
+          <input *ngSwitchCase="'number'" type="number" [(ngModel)]="tempValue" (blur)="saveCell(i, key)" class="border p-1 rounded" autofocus />
+          <select *ngSwitchCase="'boolean'" [(ngModel)]="tempValue" (blur)="saveCell(i, key)" class="border p-1 rounded" autofocus>
+            <option [ngValue]="true">True</option>
+            <option [ngValue]="false">False</option>
+            <option [ngValue]="null">Null</option>
+          </select>
+        </ng-container>
+        <button (click)="saveCell(i, key)" class="ml-2 text-green-600">Save</button>
+        <button (click)="cancelEdit()" class="ml-2 text-red-600">Cancel</button>
+      </ng-container>
+      <ng-template #displayCell>
+        {{ row[key] }}
+      </ng-template>
+    </td>
+  </tr>
+</tbody> -->
+
+<!-- <tbody class="divide-y divide-gray-200">
+  <tr *ngFor="let row of data; let i = index" class="hover:bg-gray-100">
+    <td *ngFor="let key of getObjectKeys(row)" class="border px-4 py-2">
+      <ng-container *ngIf="editingCell && editingCell.rowIndex === i && editingCell.key === key; else displayCell">
+        <ng-container [ngSwitch]="getInputType(row[key])">
+          <input *ngSwitchCase="'text'" [(ngModel)]="tempValue" (blur)="saveCell(i, key)"
+            class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            autofocus />
+          <input *ngSwitchCase="'number'" type="number" [(ngModel)]="tempValue" (blur)="saveCell(i, key)"
+            class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            autofocus />
+          <select *ngSwitchCase="'boolean'" [(ngModel)]="tempValue" (blur)="saveCell(i, key)"
+            class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            autofocus>
+            <option [ngValue]="true">True</option>
+            <option [ngValue]="false">False</option>
+            <option [ngValue]="null">Null</option>
+          </select>
+        </ng-container>
+        <div class="inline-flex space-x-2 mt-1">
+          <button (click)="saveCell(i, key)"
+            class="bg-green-500 hover:bg-green-600 transition duration-200 text-white px-2 py-1 rounded">
+            Save
+          </button>
+          <button (click)="cancelEdit()"
+            class="bg-red-500 hover:bg-red-600 transition duration-200 text-white px-2 py-1 rounded">
+            Cancel
+          </button>
+        </div>
+      </ng-container>
+      <ng-template #displayCell>
+        <span class="block">{{ row[key] }}</span>
+      </ng-template>
+    </td>
+  </tr>
+</tbody> -->
+
+<tbody class="divide-y divide-gray-200">
+  <tr *ngFor="let row of data; let i = index" class="hover:bg-gray-100">
+    <td *ngFor="let key of getObjectKeys(row)" class="border px-4 py-2"
+      (dblclick)="onCellDoubleClick(i, key, row[key])">
+      <!-- If this cell is in editing mode, show the editable input -->
+      <ng-container *ngIf="editingCell && editingCell.rowIndex === i && editingCell.key === key; else displayCell">
+        <ng-container [ngSwitch]="getInputType(row[key])">
+          <input *ngSwitchCase="'text'" [(ngModel)]="tempValue" (blur)="saveCell(i, key)"
+            class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            autofocus />
+          <input *ngSwitchCase="'number'" type="number" [(ngModel)]="tempValue" (blur)="saveCell(i, key)"
+            class="border border-gray-300 mt-1 inline-flex space-x-5 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            autofocus />
+          <select *ngSwitchCase="'boolean'" [(ngModel)]="tempValue" (blur)="saveCell(i, key)"
+            class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            autofocus>
+            <option [ngValue]="true">True</option>
+            <option [ngValue]="false">False</option>
+            <option [ngValue]="null">Null</option>
+          </select>
+        </ng-container>
+        <!-- Action buttons for saving or canceling -->
+        <div class="inline-flex space-x-5 mt-1">
+          <button (click)="saveCell(i, key)"
+            class="bg-green-400 hover:bg-green-500 transition duration-200 text-white px-2 py-1 rounded-full shadow-2xl">
+            Save
+          </button>
+          <button (click)="cancelEdit()"
+            class="bg-red-400 hover:bg-red-500 transition duration-200 text-white px-2 py-1 rounded-full shadow-2xl">
+            Cancel
+          </button>
+        </div>
+      </ng-container>
+      <!-- Display mode: just show the value -->
+      <ng-template #displayCell>
+        <span class="block">{{ row[key] }}</span>
+      </ng-template>
+    </td>
+  </tr>
+</tbody>

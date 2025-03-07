@@ -3,10 +3,6 @@ import { CommonModule } from '@angular/common';
 import { TableHeaderComponent } from '../table-header/table-header.component';
 import { TableBodyComponent } from '../table-body/table-body.component';
 
-interface TableData {
-  [key: string]: any;
-}
-
 @Component({
   selector: 'app-super-table',
   standalone: true,
@@ -15,8 +11,8 @@ interface TableData {
   styleUrls: ['./super-table.component.css'],
 })
 export class SuperTableComponent implements OnInit {
-  data: TableData[] = [];
-  originalData: TableData[] = [];
+  data: any[] = [];
+  originalData: any[] = [];
   logData: any[] = [];
 
   constructor() {}
@@ -26,34 +22,46 @@ export class SuperTableComponent implements OnInit {
   }
 
   fetchData(): void {
-    // Fetch data from an API – using JSONPlaceholder as an example.
-    fetch('https://jsonplaceholder.typicode.com/todos')
+    // Fetch sample data from an API (JSONPlaceholder)
+    fetch('https://jsonplaceholder.typicode.com/comments')
       .then((response) => response.json())
       .then((json) => {
         this.data = json;
-        // Make a deep copy for later reference if needed.
         this.originalData = JSON.parse(JSON.stringify(json));
       })
       .catch((error) => console.error('Error fetching data:', error));
   }
 
-  // Receives filtered/sorted data from the header component.
-  onFilterSortChange(filteredData: TableData[]): void {
+  onFilterSortChange(filteredData: any[]): void {
     this.data = filteredData;
   }
 
-  // Receives log information from the table body when a cell is updated.
-  onCellUpdate(event: {
-    row: TableData;
-    previous: TableData;
-    updated: TableData;
-  }): void {
+  onCellUpdate(event: { row: any; previous: any; updated: any }): void {
     console.log('Cell updated:', event);
     this.logData.push(event);
   }
 
-  // Receives a new row from the table body’s add row event.
-  addNewRow(newRow: TableData): void {
+  // Triggered when the '+' button is clicked.
+  onAddRowFromSuperTable(): void {
+    let newRow: any = {};
+    if (this.data && this.data.length > 0) {
+      Object.keys(this.data[0]).forEach((key) => {
+        const type = typeof this.data[0][key];
+        if (type === 'boolean') {
+          newRow[key] = null;
+        } else if (type === 'number') {
+          newRow[key] = 0;
+        } else {
+          newRow[key] = '';
+        }
+      });
+    } else {
+      newRow = { id: '', title: '', completed: null };
+    }
+    this.addNewRow(newRow);
+  }
+
+  addNewRow(newRow: any): void {
     this.data = [newRow, ...this.data];
     this.logData.push({ action: 'create', newRow });
   }

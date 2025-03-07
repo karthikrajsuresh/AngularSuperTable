@@ -2,10 +2,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-interface TableData {
-  [key: string]: any;
-}
-
 @Component({
   selector: 'app-table-body',
   standalone: true,
@@ -14,23 +10,23 @@ interface TableData {
   styleUrls: ['./table-body.component.css'],
 })
 export class TableBodyComponent {
-  @Input() data: TableData[] = [];
+  @Input() data: any[] = [];
   @Output() cellUpdate = new EventEmitter<{
-    row: TableData;
-    previous: TableData;
-    updated: TableData;
+    row: any;
+    previous: any;
+    updated: any;
   }>();
-  @Output() addRow = new EventEmitter<TableData>();
 
-  // Track which cell is in edit mode.
+  // Stores which cell is in edit mode.
   editingCell: { rowIndex: number; key: string } | null = null;
+  // Holds the temporary value while editing.
   tempValue: any;
 
   getObjectKeys(obj: any): string[] {
-    return Object.keys(obj || {});
+    return Object.keys(obj).sort(); // Sort keys alphabetically
   }
 
-  // Returns an input type based on the data type.
+  // Determines the input type based on the current value.
   getInputType(value: any): string {
     if (typeof value === 'boolean') {
       return 'boolean';
@@ -40,58 +36,51 @@ export class TableBodyComponent {
     return 'text';
   }
 
-  // Enable edit mode on double click.
+  // Triggered on double-click of a table cell.
   onCellDoubleClick(rowIndex: number, key: string, value: any): void {
+    console.log('Double clicked cell:', rowIndex, key, value);
     this.editingCell = { rowIndex, key };
+    // Initialize tempValue with the cell's current value.
     this.tempValue = value;
   }
 
-  // Save the updated cell.
+  // Save the cell value and emit an update event.
   saveCell(rowIndex: number, key: string): void {
     if (!this.editingCell) return;
-
+    console.log(
+      'Saving cell at row:',
+      rowIndex,
+      'key:',
+      key,
+      'new value:',
+      this.tempValue
+    );
     const previous = { ...this.data[rowIndex] };
+    // Convert the temporary value if needed.
     this.data[rowIndex][key] = this.parseValue(this.tempValue, previous[key]);
     const updated = { ...this.data[rowIndex] };
-
+    console.log('Cell updated. Previous:', previous, 'Updated:', updated);
     this.cellUpdate.emit({ row: this.data[rowIndex], previous, updated });
+    // Exit editing mode.
     this.editingCell = null;
   }
 
+  // Cancel the editing mode.
   cancelEdit(): void {
+    console.log('Editing cancelled.');
     this.editingCell = null;
   }
 
-  // Convert the temporary value based on the original data type.
+  // Parses the temporary value to match the type of the original value.
   parseValue(value: any, original: any): any {
     if (typeof original === 'boolean') {
-      if (value === 'true') return true;
-      if (value === 'false') return false;
+      if (value === 'true' || value === true) return true;
+      if (value === 'false' || value === false) return false;
       return null;
     } else if (typeof original === 'number') {
-      return Number(value);
+      const num = Number(value);
+      return isNaN(num) ? original : num;
     }
     return value;
-  }
-
-  // Triggered when the "+" button is clicked to add a new row.
-  onAddRow(): void {
-    let newRow: TableData = {};
-    if (this.data.length > 0) {
-      Object.keys(this.data[0]).forEach((key) => {
-        const type = typeof this.data[0][key];
-        if (type === 'boolean') {
-          newRow[key] = null;
-        } else if (type === 'number') {
-          newRow[key] = 0;
-        } else {
-          newRow[key] = '';
-        }
-      });
-    } else {
-      // Fallback if no data exists.
-      newRow = { id: '', title: '', completed: null };
-    }
-    this.addRow.emit(newRow);
   }
 }

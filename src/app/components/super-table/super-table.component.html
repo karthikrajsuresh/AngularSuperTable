@@ -1,8 +1,19 @@
-<div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4">Angular Super Table</h1>
-    <!-- Table Header for sorting and filtering -->
-    <app-table-header [data]="data" (filterSortChange)="onFilterSortChange($event)"></app-table-header>
-    <!-- Table Body for CRUD operations -->
-    <app-table-body [data]="data" (cellUpdate)="onCellUpdate($event)" (addRow)="addNewRow($event)">
-    </app-table-body>
+<div class="container mx-auto p-6 bg-gray-50 shadow-lg rounded-lg">
+    <h1 class="text-3xl font-extrabold text-center text-indigo-600 mb-6">
+        Angular Super Table
+    </h1>
+    <!-- '+' Button placed at the top -->
+    <div class="flex justify-end mb-4">
+        <button (click)="onAddRowFromSuperTable()"
+            class="bg-indigo-500 hover:bg-indigo-600 transition-all duration-300 text-white font-semibold px-4 py-2 rounded-full shadow">
+            + Add Row
+        </button>
+    </div>
+    <!-- Responsive table container -->
+    <div class="mx-auto overflow-x-auto">
+        <table class="w-full bg-white border border-gray-200 rounded-lg shadow">
+            <app-table-header [data]="data" (filterSortChange)="onFilterSortChange($event)"></app-table-header>
+            <app-table-body [data]="data" (cellUpdate)="onCellUpdate($event)"></app-table-body>
+        </table>
+    </div>
 </div>

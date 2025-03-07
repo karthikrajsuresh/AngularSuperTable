@@ -54,7 +54,7 @@
     </thead>
 </table> -->
 
-<table>
+<!-- <table>
     <thead>
         <tr>
             <th *ngFor="let key of getObjectKeys(data[0])" class="border px-4 py-2">
@@ -71,4 +71,121 @@
             </th>
         </tr>
     </thead>
-</table>
+</table> -->
+
+<!-- <tr>
+    <th *ngFor="let key of data[0] ? getObjectKeys(data[0]) : []" class="border px-4 py-2">
+        <div class="flex items-center justify-between">
+            <span class="font-bold">{{ key }}</span>
+            <div class="flex items-center">
+                <button (click)="onSort(key)" class="mx-1" title="Sort">
+                    {{ sortKey === key ? (sortDirection === 'asc' ? '▲' : '▼') : '↕️' }}
+                </button>
+                <input type="text" [(ngModel)]="filters[key]" (input)="onColumnFilter(key)" placeholder="🔍"
+                    class="border rounded p-1 w-8 text-center" title="Filter" />
+            </div>
+        </div>
+    </th>
+</tr> -->
+
+<!-- <div class="overflow-x-auto w-full">
+    <table class="min-w-full border-collapse">
+      <thead>
+        <tr>
+          <th *ngFor="let key of data[0] ? getObjectKeys(data[0]) : []" class="border px-4 py-2">
+            <div class="flex flex-col items-start space-y-1">
+              <span class="font-bold">{{ key }}</span>
+              <div class="flex items-center space-x-2">
+                <button (click)="onSort(key)" class="text-lg" title="Sort">
+                  {{ sortKey === key ? (sortDirection === 'asc' ? '▲' : '▼') : '↕️' }}
+                </button>
+                <input 
+                  type="text" 
+                  [(ngModel)]="filters[key]" 
+                  (input)="onColumnFilter(key)" 
+                  placeholder="🔍" 
+                  class="border rounded p-1 w-20 text-sm"
+                  title="Filter"
+                />
+              </div>
+            </div>
+          </th>
+        </tr>
+      </thead>
+    </table>
+  </div> -->
+
+<!-- <tr>
+    <th *ngFor="let key of data[0] ? getObjectKeys(data[0]) : []" class="px-4 py-2 border text-left">
+        <div class="flex items-center justify-between">
+            <span class="font-semibold">{{ key }}</span>
+            <div class="flex items-center space-x-2">
+                <button (click)="onSort(key)" class="text-gray-700" title="Sort">
+                    {{ sortKey === key ? (sortDirection === 'asc' ? '▲' : '▼') : '↕️' }}
+                </button>
+                <input type="text" [(ngModel)]="filters[key]" (input)="onColumnFilter(key)" placeholder="Filter"
+                    class="border border-gray-300 rounded px-2 py-1 text-sm" title="Filter" />
+            </div>
+        </div>
+    </th>
+</tr> -->
+
+<!-- <thead>
+    <tr>
+        <th *ngFor="let key of data[0] ? getObjectKeys(data[0]) : []" class="border px-4 py-2">
+            <div class="flex items-center justify-between">
+                <span class="font-bold">{{ key }}</span>
+                <div class="flex items-center">
+                    <button (click)="onSort(key)" class="mx-1" title="Sort">
+                        {{ sortKey === key ? (sortDirection === 'asc' ? '▲' : '▼') : '↕️' }}
+                    </button>
+                    <input type="text" [(ngModel)]="filters[key]" (input)="onColumnFilter(key)" placeholder="🔍"
+                        class="border rounded p-1 w-8 text-center" title="Filter" />
+                </div>
+            </div>
+        </th>
+    </tr>
+</thead> -->
+
+
+<!-- <thead class="bg-gray-100">
+    <tr>
+        <th *ngFor="let key of data[0] ? getObjectKeys(data[0]) : []" class="border px-4 py-2 text-left">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                <span class="font-bold text-gray-700">{{ key }}</span>
+                <div class="flex items-center space-x-2 mt-1 sm:mt-0">
+                    <button (click)="onSort(key)"
+                        class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium px-2 py-1 rounded transition duration-200"
+                        title="Sort">
+                        {{ sortKey === key ? (sortDirection === 'asc' ? '▲' : '▼') : '↕️' }}
+                    </button>
+                    <input type="text" [(ngModel)]="filters[key]" (input)="onColumnFilter(key)" placeholder="Filter"
+                        class="border border-gray-300 rounded p-1 w-20 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        title="Filter" />
+                </div>
+            </div>
+        </th>
+    </tr>
+</thead> -->
+
+<!-- Note that we ONLY produce <thead> here -->
+<thead class="bg-gray-100">
+    <tr>
+        <th *ngFor="let key of data[0] ? getObjectKeys(data[0]) : []" class="border px-4 py-2 text-left">
+            <!-- class="border px-4 py-2 text-left w-1/{{ getObjectKeys(data[0]).length }}" -->
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                <span class="font-bold text-gray-700">{{ key }}</span>
+                <div class="flex items-center space-x-2 mt-1 sm:mt-0">
+                    <button (click)="onSort(key)"
+                        class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium px-2 py-1 rounded transition duration-200"
+                        title="Sort">
+                        {{ sortKey === key ? (sortDirection === 'asc' ? '▲' : '▼') : '↕️' }}
+                    </button>
+                    <input type="text" [(ngModel)]="filters[key]" (input)="onColumnFilter(key)" placeholder="🔍"
+                        class="border border-gray-300 rounded p-1 w-20 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        title="Filter" />
+                </div>
+            </div>
+        </th>
+    </tr>
+</thead>

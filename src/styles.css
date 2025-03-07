@@ -1,2 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th,
+td {
+  border: 1px solid #e5e7eb;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  white-space: nowrap;
+}
+th {
+  background-color: #f3f4f6;
+}

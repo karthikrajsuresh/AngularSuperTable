@@ -2,10 +2,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-interface TableData {
-  [key: string]: any;
-}
-
 @Component({
   selector: 'app-table-header',
   standalone: true,
@@ -14,22 +10,19 @@ interface TableData {
   styleUrls: ['./table-header.component.css'],
 })
 export class TableHeaderComponent {
-  @Input() data: TableData[] = [];
-  @Output() filterSortChange = new EventEmitter<TableData[]>();
+  @Input() data: any[] = [];
+  @Output() filterSortChange = new EventEmitter<any[]>();
 
   sortKey: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
-
-  // Change to column-specific filters
   filters: { [key: string]: string } = {};
 
   getObjectKeys(obj: any): string[] {
-    return Object.keys(obj || {});
+    return Object.keys(obj).sort();
   }
 
   onSort(key: string): void {
     if (this.sortKey === key) {
-      // Toggle sort direction.
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
       this.sortKey = key;
@@ -38,30 +31,25 @@ export class TableHeaderComponent {
     this.applyFilterAndSort();
   }
 
-  // New method for column-specific filtering
   onColumnFilter(key: string): void {
     this.applyFilterAndSort();
   }
 
   applyFilterAndSort(): void {
     let filteredData = [...this.data];
-
-    // Apply column-specific filters
-    if (Object.keys(this.filters).length > 0) {
-      filteredData = filteredData.filter((item) => {
-        return Object.keys(this.filters).every((key) => {
-          if (!this.filters[key]) return true; // Skip empty filters
-          const value = item[key];
-          if (value === null || value === undefined) return false;
-          return value
-            .toString()
-            .toLowerCase()
-            .includes(this.filters[key].toLowerCase());
-        });
-      });
-    }
-
-    // Apply sorting
+    Object.keys(this.filters).forEach((key) => {
+      const filterValue = this.filters[key];
+      if (filterValue) {
+        filteredData = filteredData.filter(
+          (item) =>
+            item[key] &&
+            item[key]
+              .toString()
+              .toLowerCase()
+              .includes(filterValue.toLowerCase())
+        );
+      }
+    });
     if (this.sortKey) {
       filteredData.sort((a, b) => {
         if (a[this.sortKey] < b[this.sortKey]) {
@@ -72,7 +60,6 @@ export class TableHeaderComponent {
         return 0;
       });
     }
-
     this.filterSortChange.emit(filteredData);
   }
 }

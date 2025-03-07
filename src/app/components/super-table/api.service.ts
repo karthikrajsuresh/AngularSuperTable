@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  getData(apiUrl: string): any {
-    return this.http.get(apiUrl);
+  getData(apiUrl: string) {
+    return this.http.get<any>(apiUrl, { responseType: 'json' });
   }
 }
